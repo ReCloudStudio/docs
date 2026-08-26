@@ -4,6 +4,8 @@ title: 技术标准
 description: ReCloud Studio 的技术开发标准与最佳实践
 ---
 
+import Contact from "../../../components/Contact.astro";
+
 ## 概述
 
 ReCloud Studio 制定技术开发标准，确保代码质量、可维护性和团队协作效率。
@@ -39,6 +41,7 @@ ReCloud Studio 制定技术开发标准，确保代码质量、可维护性和�
 - **提交信息**: 遵守 Conventional Commits 规范
 - **代码审查**: 所有代码必须经过审查
 - **合并策略**: 使用 Squash Merge 或 Rebase
+- **版本号**: 遵循 SemVer 规范
 
 ### 分支命名
 
@@ -186,8 +189,8 @@ ReCloud Studio 制定技术开发标准，确保代码质量、可维护性和�
 
 - **IDE**: VS Code、Neovim
 - **版本控制**: Git
-- **包管理**: bun（前端）、cargo（Rust）、go（Go）
-- **构建工具**: Vite、Webpack、esbuild
+- **包管理**: bun（前端）、cargo（Rust）、Go Modules（Go）
+- **构建工具**: Vite / esbuild（前端构建）、Webpack（遗留项目）
 
 ### 测试工具
 
@@ -199,13 +202,8 @@ ReCloud Studio 制定技术开发标准，确保代码质量、可维护性和�
 ### CI/CD 工具
 
 - **持续集成**: GitHub Actions
-- **持续部署**: Cloudflare Pages、Vercel
+- **持续部署**: Cloudflare Pages
 - **容器化**: Docker（如需要）
 - **监控告警**: Sentry、Grafana
 
-## 联系方式
-
-如果您对技术标准有任何疑问，请通过以下方式联系我们：
-
-- **邮箱**: dev@worldexecute.me
-- **GitHub**: 在项目中创建问题报告
+<Contact email="dev@worldexecute.me" subject="技术标准" />
