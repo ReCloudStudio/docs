@@ -23,7 +23,7 @@ bun run preview      # preview production build locally
 
 ## Project Structure
 
-```
+```text
 docs/
 ├── src/
 │   ├── content/
@@ -60,6 +60,7 @@ Primary content source: **Better SR** policy handbook (SR思锐团队政策与�
 Original: Feishu wiki at `sr-studio.feishu.cn/wiki/GwKxwB1Ili5bP1kNcUvcFjI5n5c`
 
 Key sections to adapt for public docs:
+
 - 总纲 (Manifesto)
 - 架构、角色与关系
 - 内部成员日常行为守则

@@ -1,0 +1,12 @@
+{
+  // 启用 markdownlint 默认规则集
+  "default": true,
+  // MDX/文档场景下不兼容或噪音较大的规则
+  "MD013": false, // 行长度限制（代码块与中文段落易超长）
+  "MD033": false, // 禁止内联 HTML（MDX 含 <Contact /> 等组件）
+  "MD034": false, // 裸链接/邮箱（文档中大量使用邮箱地址）
+  "MD041": false, // 首行必须是标题（frontmatter 导致首行非标题）
+  "MD060": false, // 表格列样式（与 Prettier 表格格式化冲突）
+  "MD024": { "siblings_only": true }, // 允许跨层级重复标题
+  "ignores": ["**/node_modules", "**/dist", "**/.astro", "**/REVIEW.md"],
+}
