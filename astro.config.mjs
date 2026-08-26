@@ -1,0 +1,91 @@
+import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
+
+export default defineConfig({
+  site: 'https://docs.worldexecute.me',
+  server: {
+    allowedHosts: ['recloud-docs.rhen.cloud'],
+  },
+  integrations: [
+    starlight({
+      title: 'ReCloud Studio',
+      logo: {
+        src: './src/assets/logo.svg',
+        alt: 'ReCloud Studio',
+      },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/ReCloudStudio' },
+        { icon: "twitter", label: "Twitter", href: "https://twitter.com/recloudstudio" }
+      ],
+      sidebar: [
+        {
+          label: '总纲',
+          items: [
+            { label: '概述', slug: 'manifesto' },
+            { label: '身份与定义', slug: 'manifesto/identity' },
+            { label: '使命与愿景', slug: 'manifesto/mission' },
+            { label: '文化与精神', slug: 'manifesto/culture' },
+          ],
+        },
+        {
+          label: '架构与角色',
+          items: [
+            { label: '概述', slug: 'organization' },
+            { label: '团队体系', slug: 'organization/team-structure' },
+            { label: '团队架构', slug: 'organization/team-architecture' },
+            { label: '成员角色', slug: 'organization/member-roles' },
+            { label: '对外关系', slug: 'organization/external-relations' },
+          ],
+        },
+        {
+          label: '行为守则',
+          items: [
+            { label: '概述', slug: 'conduct' },
+            { label: '成员行为规范', slug: 'conduct/code-of-conduct' },
+          ],
+        },
+        {
+          label: '数据安全',
+          items: [
+            { label: '概述', slug: 'security' },
+            { label: '隐私保护规范', slug: 'security/privacy-policy' },
+          ],
+        },
+        {
+          label: '开源协议',
+          items: [
+            { label: '概述', slug: 'open-source' },
+            { label: '对外公开源代码', slug: 'open-source/public-license' },
+            { label: '对内公开源代码', slug: 'open-source/internal-license' },
+          ],
+        },
+        {
+          label: '品牌保护',
+          items: [
+            { label: '概述', slug: 'brand' },
+            { label: '品牌使用规范', slug: 'brand/brand-guidelines' },
+          ],
+        },
+        {
+          label: '管理规范',
+          items: [
+            { label: '概述', slug: 'management' },
+            { label: '构成与选拔', slug: 'management/composition' },
+            { label: '权力清单', slug: 'management/powers' },
+            { label: '义务与限制', slug: 'management/obligations' },
+            { label: '决策机制', slug: 'management/decision-making' },
+            { label: '弹劾与更替', slug: 'management/impeachment' },
+          ],
+        },
+        {
+          label: '开发规范',
+          items: [
+            { label: '概述', slug: 'development' },
+            { label: '项目管理', slug: 'development/project-management' },
+            { label: '技术标准', slug: 'development/tech-standards' },
+          ],
+        },
+      ],
+    }),
+  ],
+});
