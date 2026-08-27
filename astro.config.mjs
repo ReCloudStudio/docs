@@ -12,6 +12,7 @@ export default defineConfig({
       logo: {
         src: "./src/assets/logo.svg",
         alt: "ReCloud Studio",
+        replacesTitle: true,
       },
       social: [
         {
@@ -82,6 +83,7 @@ export default defineConfig({
           items: [
             { label: "概述", slug: "brand" },
             { label: "品牌使用规范", slug: "brand/brand-guidelines" },
+            { label: "设计规范", slug: "brand/design" },
           ],
         },
         {

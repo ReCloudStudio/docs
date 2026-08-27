@@ -1,0 +1,163 @@
+---
+// ReCloud Studio 品牌色彩设计实例
+const scale = [
+  { name: "--brand-50", hex: "#C8E0FD" },
+  { name: "--brand-100", hex: "#9BC5FE" },
+  { name: "--brand-200", hex: "#70ACFE" },
+  { name: "--brand-300", hex: "#417BDF" },
+  { name: "--brand-600", hex: "#3069C9" },
+  { name: "--brand-700", hex: "#1E63CE" },
+];
+---
+
+<div class="showcase">
+  <h3>品牌蓝刻度</h3>
+  <div class="swatches">
+    {
+      scale.map((c) => (
+        <div class="swatch">
+          <span class="chip" style={`background:${c.hex}`} />
+          <code>{c.name}</code>
+          <span class="hex">{c.hex}</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <h3>垂直渐变</h3>
+  <div class="gradient-bar" />
+
+  <h3>按钮与链接</h3>
+  <div class="row">
+    <button class="btn btn-primary" type="button">主按钮</button>
+    <button class="btn btn-secondary" type="button">次按钮</button>
+    <a class="link" href="#">文字链接</a>
+  </div>
+
+  <h3>卡片</h3>
+  <div class="card">
+    <div class="card-head">ReCloud Studio</div>
+    <div class="card-body">头部使用垂直品牌渐变，正文区域采用浅色背景。</div>
+  </div>
+
+  <h3>徽章与提示条</h3>
+  <div class="row">
+    <span class="badge">信息</span>
+    <span class="badge badge-soft">浅底徽章</span>
+  </div>
+  <div class="banner">这是一条使用品牌蓝的信息提示条示例。</div>
+</div>
+
+<style>
+  .showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .showcase h3 {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+  }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.75rem;
+  }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    border: 1px solid #dce3ec;
+    border-radius: 8px;
+  }
+  .chip {
+    display: block;
+    height: 36px;
+    border-radius: 6px;
+  }
+  .swatch code {
+    font-size: 0.8rem;
+  }
+  .hex {
+    font-size: 0.75rem;
+    color: #5b6b7b;
+  }
+  .gradient-bar {
+    height: 56px;
+    border-radius: 8px;
+    background: linear-gradient(
+      180deg,
+      #c8e0fd 0%,
+      #9bc5fe 25%,
+      #70acfe 50%,
+      #417bdf 75%,
+      #3069c9 100%
+    );
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .btn {
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: #3069c9;
+    color: #ffffff;
+  }
+  .btn-primary:hover {
+    background: #1e63ce;
+  }
+  .btn-secondary {
+    background: #ffffff;
+    color: #3069c9;
+    border: 1px solid #3069c9;
+  }
+  .link {
+    color: #3069c9;
+    text-decoration: underline;
+  }
+  .card {
+    border: 1px solid #dce3ec;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 360px;
+  }
+  .card-head {
+    padding: 1rem;
+    color: #ffffff;
+    font-weight: 700;
+    background: linear-gradient(180deg, #70acfe 0%, #3069c9 100%);
+  }
+  .card-body {
+    padding: 1rem;
+    color: #1f2a37;
+    background: #f4f8fe;
+  }
+  .badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    color: #ffffff;
+    background: #3069c9;
+  }
+  .badge-soft {
+    color: #3069c9;
+    background: #c8e0fd;
+  }
+  .banner {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #3069c9;
+    background: #f4f8fe;
+    color: #1f2a37;
+  }
+</style>
