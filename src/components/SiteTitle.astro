@@ -1,0 +1,10 @@
+---
+import logoSvg from "../assets/logo.svg?raw";
+const { siteTitleHref } = Astro.locals.starlightRoute;
+const svg = logoSvg
+  .replace(/<\?xml[^>]*\?>\s*/, "")
+  .replace(/width="1254" height="1254"/, 'width="32" height="32"')
+  .replace(/<title>[^<]*<\/title>/, "");
+---
+
+<a href={siteTitleHref} class="site-title sl-flex" aria-label="ReCloud Studio" set:html={svg} />

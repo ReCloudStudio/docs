@@ -12,7 +12,6 @@ export default defineConfig({
       logo: {
         src: "./src/assets/logo.svg",
         alt: "ReCloud Studio",
-        replacesTitle: true,
       },
       social: [
         {
@@ -119,6 +118,9 @@ export default defineConfig({
           ],
         },
       ],
+      components: {
+        SiteTitle: "./src/components/SiteTitle.astro",
+      },
     }),
   ],
 });
