@@ -78,6 +78,15 @@ export default defineConfig({
           ],
         },
         {
+          label: "设计系统",
+          items: [
+            { label: "概述", slug: "design-system" },
+            { label: "设计基础", slug: "design-system/foundations" },
+            { label: "设计 Token", slug: "design-system/tokens" },
+            { label: "ReCloud UI 使用指南", slug: "design-system/recloud-ui" },
+          ],
+        },
+        {
           label: "品牌保护",
           items: [
             { label: "概述", slug: "brand" },

@@ -1,0 +1,44 @@
+---
+draft: false
+title: ReCloud UI 使用指南
+description: ReCloud Studio 项目中使用通用 ReCloud UI 组件库的约定
+---
+
+## 定位
+
+[ReCloud UI](https://github.com/ReCloudStudio/UI) 是公开、通用的 Vue 组件库。它维护组件实现、公共类型、技术文档和无障碍行为，不维护 ReCloud Studio 的产品使用规范。
+
+本页只规定 ReCloud Studio 如何使用 ReCloud UI，不改变 ReCloud UI 的公共 API 或通用定位。
+
+## 使用原则
+
+- 优先使用 ReCloud UI 已有组件，不在业务项目中复制组件实现。
+- 优先使用组件公开的 `variant`、`size` 和主题 Token，不通过深层选择器修改内部结构。
+- 业务页面的颜色、圆角、字号和间距应遵循本设计系统，不应直接写入新的硬编码值。
+- 组件无法表达产品需求时，先确认是否需要补充通用能力；不要把仅适用于单个页面的业务规则塞进通用组件。
+- 组件的无障碍语义、键盘行为和焦点管理不能被业务样式覆盖。
+
+## 主题与 Token
+
+ReCloud UI 提供通用主题 Token 和 Light / Dark 支持。ReCloud Studio 不直接依赖这些默认值，而是通过自己的语义 Token 契约进行映射。完整规则、版本锁定和升级流程见[设计 Token](./tokens)。
+
+Studio 项目可以在应用入口配置产品主题，但应保留 Token 的语义，不将 `--primary`、`--background` 等实现变量扩散到业务页面。Token 的具体名称和默认值以 [ReCloud UI 源码](https://github.com/ReCloudStudio/UI/tree/dev/packages/ui/src/theme.css)及其版本文档为准；Studio 的视觉结果以本站 Token 契约为准。
+
+## 组件选择
+
+- **Button**：用于明确的用户操作。主要操作使用 Primary；次要操作使用 Secondary 或 Ghost；删除、撤销等不可逆操作使用 Destructive。
+- **Form**：字段必须有清晰的标签、帮助文本和错误反馈。不要使用 placeholder 替代 label。
+- **Dialog**：用于需要用户确认、补充信息或聚焦处理的任务，不用于承载完整页面导航。
+- **Table**：用于可扫描的结构化数据；数据密集型表格应保持列对齐、稳定的操作位置和明确的空状态。
+- **Feedback**：根据影响范围选择内联提示、Toast 或 Dialog，不要用 Toast 替代必须被用户看到的错误信息。
+
+## 变更与同步
+
+当 ReCloud Studio 需要新的通用组件能力时，应同时评估：
+
+1. 需求是否适用于其他 ReCloud UI 使用者。
+2. API 是否足够通用，是否具有明确的无障碍行为。
+3. ReCloud UI 的变更是否需要 Changeset。
+4. 本站是否需要补充或更新产品使用规则。
+
+ReCloud UI 的实现版本与本页内容可能独立发布。发现组件行为和本站规范不一致时，应在产品仓库和组件库中分别记录需要修正的实现或规范。

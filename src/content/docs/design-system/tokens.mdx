@@ -1,0 +1,249 @@
+---
+draft: false
+title: 设计 Token
+description: ReCloud Studio 自有的设计变量、组件映射与版本治理规则
+---
+
+## 规范定位
+
+ReCloud Studio 不直接把 ReCloud UI 的默认 Token 当作产品规范。ReCloud UI 的默认值属于通用组件库实现细节，未来可能为了兼容更多产品、主题或组件而调整。
+
+ReCloud Studio 的视觉结果必须由**Studio 自有的语义 Token 契约**决定。业务项目只消费 Studio Token；ReCloud UI 只是这些 Token 的一个实现载体。
+
+```text
+ReCloud Studio Token 契约
+        ↓ 映射与适配
+ReCloud UI Token / 组件 API
+        ↓
+产品页面
+```
+
+## 三层 Token 模型
+
+### 1. 原始值层
+
+原始值是颜色、长度、字号、字重等具体数值，例如 `#3069C9`、`8px` 或 `14px`。原始值只应在 Token 源文件中定义，业务页面不得直接引用。
+
+### 2. 语义层
+
+语义 Token 描述用途，而不是描述颜色外观。推荐使用以下命名方式：
+
+```css
+--studio-color-bg-canvas
+--studio-color-bg-surface
+--studio-color-text-primary
+--studio-color-text-secondary
+--studio-color-border-default
+--studio-color-action-primary
+--studio-color-status-danger
+--studio-radius-control
+--studio-space-page-inline
+--studio-type-body-size
+```
+
+页面和业务组件应优先使用语义层。不要在业务代码中使用 `--blue-600`、`--gray-500` 或 `#3069C9` 这类与用途无关的值。
+
+### 3. 组件层
+
+组件层定义具体组件如何消费语义 Token，例如按钮的背景、文字、边框和焦点环。页面不应绕过组件层修改组件内部结构；确有产品级需求时，应新增明确的组件变体或更新组件映射。
+
+## Studio Token 是稳定契约
+
+以下规则是强制约定：
+
+- ReCloud UI 的默认 Token 不是 ReCloud Studio 的稳定 API。
+- ReCloud Studio 必须维护自己的 Token 清单和版本记录。
+- 业务项目不得直接依赖 ReCloud UI 的默认颜色、默认圆角、默认间距或默认字号。
+- ReCloud UI 升级前必须检查 Studio Token 的映射和视觉回归结果。
+- 只有经过评审并更新本文档、Token 源文件和迁移说明后，Studio Token 才能发生变化。
+
+## 推荐的 Token 清单
+
+以下是 Studio 应建立的语义类别。具体数值应由设计评审确定，并在实现仓库中维护唯一来源。
+
+| 类别     | 示例 Token                      | 用途                     |
+| -------- | ------------------------------- | ------------------------ |
+| 背景     | `--studio-color-bg-canvas`      | 页面或应用主背景         |
+| 表面     | `--studio-color-bg-surface`     | 卡片、面板和输入区域     |
+| 文字     | `--studio-color-text-primary`   | 主要正文和标题           |
+| 次要文字 | `--studio-color-text-secondary` | 辅助说明和元数据         |
+| 边框     | `--studio-color-border-default` | 默认分隔线和控件边框     |
+| 主要操作 | `--studio-color-action-primary` | 主要按钮和关键链接       |
+| 状态     | `--studio-color-status-success` | 成功、完成和健康状态     |
+| 状态     | `--studio-color-status-warning` | 警告和需要关注的状态     |
+| 状态     | `--studio-color-status-danger`  | 错误、删除和危险操作     |
+| 控件圆角 | `--studio-radius-control`       | 按钮、输入框和选择器     |
+| 容器圆角 | `--studio-radius-surface`       | 卡片和面板               |
+| 浮层圆角 | `--studio-radius-overlay`       | Dialog、Sheet 和 Popover |
+| 间距     | `--studio-space-*`              | 页面、区块和控件间距     |
+| 排版     | `--studio-type-*`               | 字体、字号、字重和行高   |
+| 焦点     | `--studio-focus-ring-*`         | 键盘焦点指示             |
+
+## ReCloud Studio 推荐默认值
+
+以下值是 ReCloud Studio 的第一版产品基线。它们不是 ReCloud UI 的默认值，而是 Studio 应用在没有产品级例外时必须采用的推荐值。后续变更应遵循本文的 Token 变更流程，并记录版本和迁移说明。
+
+### 颜色
+
+颜色优先使用语义 Token。下面的原始值与当前 ReCloud UI 主题和品牌设计保持一致：
+
+| Token                                 | Light     | Dark      | 用途                 |
+| ------------------------------------- | --------- | --------- | -------------------- |
+| `--studio-color-bg-canvas`            | `#FFFFFF` | `#090E17` | 页面主背景           |
+| `--studio-color-bg-surface`           | `#FFFFFF` | `#0F172A` | 卡片、面板、输入区域 |
+| `--studio-color-bg-muted`             | `#F8FAFC` | `#0F172A` | 弱化区域和辅助背景   |
+| `--studio-color-bg-elevated`          | `#F1F5F9` | `#1E293B` | 提升层级的表面       |
+| `--studio-color-text-primary`         | `#0F172A` | `#F8FAFC` | 标题和主要正文       |
+| `--studio-color-text-secondary`       | `#334155` | `#E2E8F0` | 普通正文和辅助内容   |
+| `--studio-color-text-muted`           | `#64748B` | `#94A3B8` | 元数据和次要说明     |
+| `--studio-color-border-default`       | `#E2E8F0` | `#1E293B` | 默认边框和分隔线     |
+| `--studio-color-action-primary`       | `#2563EB` | `#70ACFE` | 主要按钮和关键链接   |
+| `--studio-color-action-primary-hover` | `#1D4ED8` | `#9BC5FE` | 主要操作悬停状态     |
+| `--studio-color-status-success`       | `#059669` | `#34D399` | 成功和完成状态       |
+| `--studio-color-status-warning`       | `#D97706` | `#FBBF24` | 警告和需要关注的状态 |
+| `--studio-color-status-danger`        | `#DC2626` | `#F87171` | 错误和危险操作       |
+| `--studio-color-focus-ring`           | `#2563EB` | `#70ACFE` | 键盘焦点指示         |
+
+浅色品牌蓝（如 `#C8E0FD`、`#9BC5FE`）只能用于背景、图示或品牌渐变，不能作为白色背景上的正文颜色。品牌渐变继续遵循[品牌设计规范](/brand/design)。
+
+### 字体与字号
+
+```css
+:root {
+  --studio-font-sans:
+    "Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Segoe UI",
+    -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Source Han Sans SC", "Noto Sans CJK SC", sans-serif;
+  --studio-font-mono:
+    "JetBrains Mono", "Sarasa Mono CL", "Maple Mono NF CN",
+    "Noto Sans Mono CJK SC", ui-monospace, monospace;
+  --studio-type-size-xs: 0.75rem;
+  --studio-type-size-sm: 0.875rem;
+  --studio-type-size-md: 1rem;
+  --studio-type-size-lg: 1.125rem;
+  --studio-type-size-xl: 1.25rem;
+  --studio-type-size-2xl: 1.5rem;
+  --studio-type-size-3xl: 1.875rem;
+  --studio-type-weight-regular: 400;
+  --studio-type-weight-medium: 500;
+  --studio-type-weight-semibold: 600;
+  --studio-type-weight-bold: 700;
+}
+```
+
+推荐文本用途：
+
+| 用途           | 字号       | 行高      | 字重  |
+| -------------- | ---------- | --------- | ----- |
+| 页面标题       | `1.875rem` | `2.25rem` | `700` |
+| 区块标题       | `1.25rem`  | `1.75rem` | `600` |
+| 卡片标题       | `1rem`     | `1.5rem`  | `600` |
+| 正文           | `1rem`     | `1.5rem`  | `400` |
+| 辅助说明       | `0.875rem` | `1.25rem` | `400` |
+| 标签和密集数据 | `0.75rem`  | `1rem`    | `500` |
+
+### 间距
+
+Studio 使用 `4px` 基础间距刻度：
+
+| Token               | 值                 | 推荐用途             |
+| ------------------- | ------------------ | -------------------- |
+| `--studio-space-1`  | `0.25rem` / `4px`  | 图标与文字的最小间距 |
+| `--studio-space-2`  | `0.5rem` / `8px`   | 紧凑控件内部间距     |
+| `--studio-space-3`  | `0.75rem` / `12px` | 控件组和表格单元格   |
+| `--studio-space-4`  | `1rem` / `16px`    | 默认内容间距         |
+| `--studio-space-5`  | `1.25rem` / `20px` | 小区块间距           |
+| `--studio-space-6`  | `1.5rem` / `24px`  | 卡片内边距和区块间距 |
+| `--studio-space-8`  | `2rem` / `32px`    | 页面区块间距         |
+| `--studio-space-12` | `3rem` / `48px`    | 大型页面分区         |
+
+### 圆角、控件高度与阴影
+
+| Token                        | 推荐值                                                              | 适用范围                              |
+| ---------------------------- | ------------------------------------------------------------------- | ------------------------------------- |
+| `--studio-radius-control`    | `0.5rem` / `8px`                                                    | Button、Input、Select、Popover 触发器 |
+| `--studio-radius-surface`    | `0.75rem` / `12px`                                                  | Card、Panel、表格容器                 |
+| `--studio-radius-overlay`    | `1rem` / `16px`                                                     | Dialog、Sheet 等主要浮层              |
+| `--studio-radius-badge`      | `9999px`                                                            | Badge、状态标签和头像                 |
+| `--studio-control-height-sm` | `2rem` / `32px`                                                     | 紧凑工具栏和密集表格                  |
+| `--studio-control-height-md` | `2.5rem` / `40px`                                                   | 默认 Button、Input、Select            |
+| `--studio-control-height-lg` | `2.75rem` / `44px`                                                  | 主要操作和触控场景                    |
+| `--studio-shadow-surface`    | `none`                                                              | 默认 Card、Panel                      |
+| `--studio-shadow-overlay`    | `0 4px 10px rgb(15 23 42 / 0.1), 0 2px 4px rgb(15 23 42 / 0.05)`    | Popover、Dropdown                     |
+| `--studio-shadow-dialog`     | `0 16px 32px rgb(15 23 42 / 0.14), 0 6px 12px rgb(15 23 42 / 0.08)` | Dialog、Sheet                         |
+
+默认情况下使用 `md` 控件高度和 `control` 圆角。`sm` 和 `lg` 只能根据密度或触控需求选择，不应在同一操作组中随意混用。
+
+## 与 ReCloud UI 的映射
+
+映射表必须记录在使用 ReCloud UI 的每个产品或共享主题包中。示例：
+
+```css
+:root {
+  --studio-color-bg-canvas: var(--background);
+  --studio-color-bg-surface: var(--card);
+  --studio-color-text-primary: var(--foreground);
+  --studio-color-border-default: var(--border);
+  --studio-color-action-primary: var(--primary);
+  --studio-radius-control: var(--radius-md);
+}
+```
+
+如果 ReCloud UI 没有提供与 Studio 契约对应的 Token，不得临时引用一个看起来相近的默认值。应选择以下方案之一：
+
+1. 在应用主题层定义 Studio Token 的明确原始值。
+2. 为 ReCloud UI 提交通用能力改进，并在发布后更新映射。
+3. 对极少数产品专属值建立产品级 Token，并在设计系统中记录其适用范围。
+
+示例中的 `var(--background)` 和 `var(--radius-md)` 只是映射目标，不代表业务页面可以直接使用这些变量。
+
+## 版本锁定与升级
+
+产品项目必须锁定 ReCloud UI 的明确版本范围，并在升级时执行以下检查：
+
+1. 查看 ReCloud UI 的变更记录，确认 Token、主题和组件样式是否变化。
+2. 对 Studio Token 映射表执行静态检查，确认所有必需 Token 仍然存在。
+3. 在 Light、Dark、窄屏和宽屏状态下执行视觉回归检查。
+4. 检查 Button、Input、Dialog、Table、Toast 等高频组件。
+5. 确认升级没有改变 Studio 的对比度、焦点状态、圆角、间距和密度。
+6. 通过后再更新依赖版本，并在产品变更记录中说明影响。
+
+如果 ReCloud UI 的默认 Token 变化但 Studio 映射仍然指向该默认 Token，必须先完成适配或固定原始值，不能直接合并升级。
+
+## Token 变更流程
+
+### 兼容性变更
+
+例如增加一个新的语义 Token，或新增一个不影响现有页面的组件映射：
+
+- 更新 Token 清单和使用说明。
+- 补充 Light / Dark 值。
+- 更新主题实现和示例。
+- 运行组件与页面的视觉回归检查。
+
+### 视觉变更
+
+例如调整默认按钮圆角、正文颜色或页面背景：
+
+- 明确变更原因和影响范围。
+- 记录旧值、新值和迁移方式。
+- 更新设计稿、Token 实现和相关页面。
+- 为需要延迟迁移的页面提供兼容别名或过渡期。
+- 在变更说明中标记为视觉变更，通知所有产品维护者。
+
+### 删除或重命名
+
+不得直接删除正在使用的 Studio Token。必须先：
+
+1. 搜索并迁移所有消费者。
+2. 保留兼容别名至少一个发布周期，除非存在严重安全或无障碍问题。
+3. 标记弃用原因和移除版本。
+4. 完成迁移后再删除旧名称。
+
+## 禁止事项
+
+- 在页面样式中直接使用 ReCloud UI 默认原始值。
+- 通过 `!important` 或深层选择器覆盖组件样式来绕过 Token 契约。
+- 因为 ReCloud UI 升级后视觉变化，就在业务页面局部打补丁而不更新映射。
+- 创建没有语义、没有消费者范围和没有删除计划的临时 Token。
+- 让同一个 Studio 语义在不同产品中映射到不同含义。
